@@ -10,22 +10,25 @@ board.on("ready", function() {
   strip = new pixel.Strip({
     board: this,
     controller: "FIRMATA",
-    strips: [ {pin: 6, length: 30}, ],
+    strips: [ {pin: 6, length: 150}, ],
     gamma: 2.8,
   });
 
   // Just like DOM-ready for web developers.
   strip.on("ready", function() {
     // Set the entire strip to pink.
-    strip.color('#ffffff');
-
-    // Send instructions to NeoPixel.
-    strip.show();
+    let centre = 75;
 
     let i = 0;
-    while(i < 75) {
+    while(i < strip.length) {
+      if (i < strip.length / 2) {
+        strip.pixel(i).color("#FF0000");
+      } else {
+        strip.pixel(i).color("#00FF00");
+      }
       i++
     }
+    strip.show();
 
     var stdin = process.openStdin();
     stdin.addListener("data", function(d) {
@@ -34,8 +37,19 @@ board.on("ready", function() {
       // with toString() and then trim()
       console.log("you entered: [" +
           d.toString().trim() + "]");
+      if (d.toString() === 'r') {
+        strip.pixel(centre).color('#ff0000')
+        centre++;
+      } else {
+        strip.pixel(centre).color('#00ff00')
+        centre--;
+      }
+      strip.show();
+
     });
   });
+
+
 
   // Allows for command-line experimentation!
   this.repl.inject({
