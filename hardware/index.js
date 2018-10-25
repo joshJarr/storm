@@ -28,7 +28,7 @@ board.on("ready", function() {
   strip = new pixel.Strip({
     board: this,
     controller: "FIRMATA",
-    strips: [ {pin: 6, length: 64}, ],
+    strips: [ {pin: 6, length: 32}, ],
     gamma: 2.8,
   });
 

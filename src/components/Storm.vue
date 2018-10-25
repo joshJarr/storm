@@ -140,7 +140,7 @@
   padding: 10px;
   position: relative;
   text-transform: uppercase;
-  width: 40%;
+  width: 43%;
 }
 
 .name__left {
@@ -165,7 +165,6 @@
 }
 
 .name__left:after {
-  border-right: 1px solid #2C2C2C;
   right: -2px;
 }
 
@@ -174,18 +173,12 @@
   border-left: 1px solid #2C2C2C;
 }
 
-.right-active {
-  background-color: #00FF4A;
-}
-
+.right-active,
 .right-active:after {
   background-color: #00FF4A;
 }
 
-.left-active {
-  background-color: #FF00E5;
-}
-
+.left-active,
 .left-active:after {
   background-color: #FF00E5;
 }
@@ -194,9 +187,15 @@
 .votes-container {
   background-color: #131313;
   border-radius: 16px;
-  border: 1px solid #313131;
   margin: auto;
   max-width: 500px;
+  -moz-box-shadow:    inset 0 11px 10px #000000;
+  -webkit-box-shadow: inset 0 11px 10px #000000;
+  box-shadow:         inset 0 11px 10px #000000;
+}
+
+.buttons-container {
+  padding-top: 2%;
 }
 
 .votes-container {
