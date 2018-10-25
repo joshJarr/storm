@@ -1,5 +1,23 @@
-pixel = require("node-pixel");
-five = require("johnny-five");
+var pixel = require("node-pixel");
+var five = require("johnny-five");
+var admin = require("firebase-admin");
+
+// Fetch the service account key JSON file contents
+var serviceAccount = require("./serviceAccountKey.json");
+
+// Initialize the app with a service account, granting admin privileges
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://storm-90c94.firebaseio.com/"
+});
+
+// As an admin, the app has access to read and write all data, regardless of Security Rules
+var db = admin.database();
+var ref = db.ref();
+ref.on('value', function(snapshot) {
+  console.log(snapshot.val());
+});
+
 
 var board = new five.Board();
 var strip = null;

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "firebase-admin": "^6.1.0",
     "johnny-five": "^1.0.0",
     "node-pixel": "^0.10.1"
   },
