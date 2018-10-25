@@ -1,6 +1,8 @@
 <template>
   <div>
     <div v-if="active">
+      <h3>Only one vote, you can change at any time.</h3>
+
       <div class="name-containers">
         <div class="name name__left"
           v-bind:class="{ 'left-active': buttonPressed === 'left' }">
@@ -12,7 +14,7 @@
         </div>
       </div>
 
-      <div class="button-containers">
+      <div class="buttons-container">
         <div style="display: inline-block; width: 49%"
           v-on:click="voteLeft"
           v-bind:class="{ 'inactive' : buttonPressed === 'left' }">  
@@ -29,14 +31,9 @@
         </div>
       </div>
 
-      <div>
-        Current Votes:<br>
-        <pink-vote class="vote" v-for="vote in votes.left" :key="vote.$index"></pink-vote>
-        <green-vote class="vote" v-for="vote in votes.right" :key="vote.$index"></green-vote>
-        <br>
-
-        {{votes.leftName}} - {{votes.left}} <br> 
-        {{votes.rightName}} - {{votes.right}}
+      <div class="votes-container">
+        <pink-vote class="vote" v-for="vote in leftPercentage" :key="vote.$index"></pink-vote>
+        <green-vote class="vote" v-for="vote in rightPercentage" :key="vote.$index"></green-vote>
       </div>
     </div>
     <div v-if="!active">
@@ -58,6 +55,9 @@
       return {
         active: false,
         buttonPressed: '',
+        length: 14,
+        leftPercentage: 0,
+        rightPercentage: 0,
         votes: {
           left: 0,
           leftName: '',
@@ -92,6 +92,19 @@
         this.votes.leftName = value.votes.leftName;
         this.votes.right = value.votes.right;
         this.votes.rightName = value.votes.rightName;
+
+        this.calculatePercentage(value.votes.left, value.votes.right)
+      },
+      calculatePercentage: function (left, right) {
+        if (!left & !right) {
+          var lengthHalfed = this.length / 2;
+          this.leftPercentage = lengthHalfed;
+          this.rightPercentage = lengthHalfed;
+        } else {
+          var percentageVote = this.length / (left + right);
+          this.leftPercentage = Math.floor(percentageVote * left);
+          this.rightPercentage = Math.floor(percentageVote * right);
+        }
       }
     },
     created() {
@@ -145,7 +158,7 @@
   display: block;
   position: absolute;
   height: 100%;
-  width: 50px;
+  width: 18px;
   top: 0;
   transform: skew(-35deg);
   z-index: 1;
@@ -177,12 +190,18 @@
   background-color: #FF00E5;
 }
 
-.button-containers {
+.buttons-container,
+.votes-container {
   background-color: #131313;
   border-radius: 16px;
   border: 1px solid #313131;
   margin: auto;
   max-width: 500px;
+}
+
+.votes-container {
+  border-radius: 50px;
+  margin-top: 30px;
   width: 100%;
 }
 
@@ -191,7 +210,9 @@
 }
 
 .vote {
-  margin-left: -20px;
-  margin-right: -20px;
+  margin-top: -10px;
+  margin-right: -31px;
+  margin-left: -31px;
+  margin-bottom: -20px;
 }
 </style>

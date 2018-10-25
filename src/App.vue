@@ -28,7 +28,7 @@ html {
   background-color: #1a1a1a;
 }
 .title-img {
-  margin: 40px 0px;
+  margin: 20px 0px;
   max-width: 700px;
   width: 100%;
 }
