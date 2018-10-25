@@ -3,7 +3,7 @@ var five = require("johnny-five");
 var admin = require("firebase-admin");
 
 // Fetch the service account key JSON file contents
-var serviceAccount = require("./serviceAccountKey.json");
+// var serviceAccount = require("./serviceAccountKey.json");
 
 // Initialize the app with a service account, granting admin privileges
 admin.initializeApp({
@@ -14,10 +14,6 @@ admin.initializeApp({
 // As an admin, the app has access to read and write all data, regardless of Security Rules
 var db = admin.database();
 var ref = db.ref();
-ref.on('value', function(snapshot) {
-  console.log(snapshot.val());
-});
-
 
 var board = new five.Board();
 var strip = null;
@@ -34,9 +30,9 @@ board.on("ready", function() {
 
   // Just like DOM-ready for web developers.
   strip.on("ready", function() {
-    // Set the entire strip to pink.
     let centre = 75;
 
+    // Set stripe 50% red and 50% gree
     let i = 0;
     while(i < strip.length) {
       if (i < strip.length / 2) {
@@ -48,13 +44,21 @@ board.on("ready", function() {
     }
     strip.show();
 
+    // Listen to data changes
+    ref.on('value', function(snapshot) {
+      console.log(snapshot.val());
+      if (snapshot.val() === 'red') {
+        strip.pixel(centre).color('#ff0000')
+        centre++;
+      } else if (snapshot.val() === 'green') {
+        strip.pixel(centre).color('#00ff00')
+        centre--;
+      }
+    });
+
+    // Allow command interface:
     var stdin = process.openStdin();
     stdin.addListener("data", function(d) {
-      // note:  d is an object, and when converted to a string it will
-      // end with a linefeed.  so we (rather crudely) account for that
-      // with toString() and then trim()
-      console.log("you entered: [" +
-          d.toString().trim() + "]");
       if (d.toString() === 'r') {
         strip.pixel(centre).color('#ff0000')
         centre++;
@@ -63,14 +67,7 @@ board.on("ready", function() {
         centre--;
       }
       strip.show();
-
     });
-  });
 
-
-
-  // Allows for command-line experimentation!
-  this.repl.inject({
-    strip: strip
   });
 });
