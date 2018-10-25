@@ -50,7 +50,7 @@
   import PinkVote from './PinkVote.vue'
 
   export default {
-    name: 'HelloWorld',
+    name: 'Storm',
     data() {
       return {
         active: false,
