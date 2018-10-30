@@ -1,17 +1,17 @@
 <template>
   <div id="app">
     <img class="title-img" src="./assets/title.png">
-    <HelloWorld/>
+    <Storm/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Storm from './components/Storm.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld,
+    Storm,
   }
 }
 </script>
@@ -28,7 +28,7 @@ html {
   background-color: #1a1a1a;
 }
 .title-img {
-  margin: 40px 0px;
+  margin: 20px 0px;
   max-width: 700px;
   width: 100%;
 }

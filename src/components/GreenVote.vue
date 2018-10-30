@@ -4,8 +4,8 @@
     <title>Oval Copy 8</title>
     <desc>Created with Sketch.</desc>
     <defs>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
-            <stop stop-color="#9D9D9D" offset="0%"></stop>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="greenGradient">
+            <stop stop-color="#e3e3e3" offset="0%"></stop>
             <stop stop-color="#535353" offset="100%"></stop>
         </linearGradient>
         <circle id="path-green" cx="239" cy="574" r="8"></circle>
@@ -30,7 +30,7 @@
             <g id="Oval-Copy-8" fill-rule="nonzero">
                 <use fill="black" fill-opacity="1" filter="url(#filter-green)" xlink:href="#path-green"></use>
                 <use fill="#00FF4A" xlink:href="#path-green"></use>
-                <use stroke="url(#linearGradient-2)" stroke-width="1" xlink:href="#path-green"></use>
+                <use stroke="url(#greenGradient)" stroke-width="1" xlink:href="#path-green"></use>
             </g>
         </g>
     </g>
