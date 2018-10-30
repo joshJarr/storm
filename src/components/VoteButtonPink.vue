@@ -69,7 +69,6 @@
         return this.clicked ? '#FF00E5' : '#E3E3E3'
       }
     }
-    // clicked ? FF00E5 : fillColor = #fff
    }
 </script>
 

@@ -15,14 +15,14 @@
       </div>
 
       <div class="buttons-container">
-        <div style="display: inline-block; width: 49%"
+        <div class="vote-button"
           v-on:click="voteLeft"
           v-bind:class="{ 'inactive' : buttonPressed === 'left' }">  
           <vote-button-pink
             :clicked="buttonPressed === 'left'">
           </vote-button-pink>
         </div>
-          <div style="display: inline-block; width: 49%"
+          <div class="vote-button"
             v-on:click="voteRight"
             v-bind:class="{ 'inactive' : buttonPressed === 'right' }">
             <vote-button-green
@@ -69,7 +69,7 @@
     methods: {
       voteRight: function () {
         this.votes.right = this.votes.right + 1;
-        if (this.buttonPressed === 'left') {
+        if (this.buttonPressed === 'left' && this.votes.left !== 0) {
           this.votes.left = this.votes.left - 1;
         }
         this.buttonPressed = 'right';
@@ -77,7 +77,7 @@
       },
       voteLeft: function () {
         this.votes.left = this.votes.left + 1;
-        if (this.buttonPressed === 'right') {
+        if (this.buttonPressed === 'right' && this.votes.right !== 0) {
           this.votes.right = this.votes.right - 1;
         }
         this.buttonPressed = 'left';
@@ -202,6 +202,11 @@
   border-radius: 50px;
   margin-top: 30px;
   width: 100%;
+}
+
+.vote-button {
+  display: inline-block;
+  width: 49%;
 }
 
 .inactive { 

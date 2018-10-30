@@ -53,17 +53,13 @@
 
 <script>
   export default {
-    // filled 00FF48
     name: 'VoteButtonGreen',
     props: ['clicked'],
     computed: {
-      // a computed getter
       isClicked: function () {
-        // `this` points to the vm instance
         return this.clicked ? '#00FF48' : '#E3E3E3'
       }
     }
-    // clicked ? FF00E5 : fillColor = #fff
    }
 </script>
 

@@ -28,7 +28,7 @@ board.on("ready", function() {
   strip = new pixel.Strip({
     board: this,
     controller: "FIRMATA",
-    strips: [ {pin: 6, length: 32}, ],
+    strips: [ {pin: 6, length: 148}, ],
     gamma: 2.8,
   });
 
@@ -37,6 +37,14 @@ board.on("ready", function() {
     // Listen to data changes
     ref.on('value', function(snapshot) {
       var votes = snapshot.val().votes;
+
+      if (votes.right < 0) {
+        votes.right = 0;
+      }
+
+      if (votes.left < 0) {
+        votes.left = 0;
+      }
 
       var multiplier = strip.length / (votes.left + votes.right);
 
@@ -51,12 +59,14 @@ board.on("ready", function() {
 function updatePixels(left, right) {
   if (!left & !right) {
     var lengthHalfed = strip.length / 2;
-    left = lengthHalfed;
-    right = lengthHalfed;
+    left = Math.floor(lengthHalfed);
+    right = Math.floor(lengthHalfed);
   } else {
     left = Math.floor(left);
     right = Math.floor(right);
   }
+
+  console.log(left, right);
 
   for (var i = 0; i < left; i++) {
     strip.pixel(i).color(pink);
